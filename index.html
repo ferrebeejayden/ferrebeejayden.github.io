@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jayden Ferrebee — Electrical Engineering</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f12;
+      --bg2: #13161b;
+      --bg3: #1a1e25;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.13);
+      --text: #e8eaf0;
+      --muted: #7a8394;
+      --accent: #4a90d9;
+      --green: #3db87a;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,15,18,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-name { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.04em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    section { padding: 5rem 2rem; max-width: 860px; margin: 0 auto; }
+    section:first-of-type { padding-top: 9rem; }
+
+    .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 540px; margin-bottom: 2.5rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.6rem 1.4rem; font-size: 13px; font-family: var(--mono); border-radius: 4px; transition: all 0.2s; letter-spacing: 0.03em; }
+    .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: #5a9fe8; text-decoration: none; }
+    .btn-outline { background: transparent; color: var(--muted); border: 1px solid var(--border2); }
+    .btn-outline:hover { color: var(--text); border-color: var(--muted); text-decoration: none; }
+
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .section-header h2 { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .section-line { height: 1px; background: var(--border); flex: 1; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } .nav-links { gap: 1rem; } }
+    .about-text { color: var(--muted); font-size: 0.95rem; }
+    .about-text p { margin-bottom: 1rem; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+    .detail-list { list-style: none; }
+    .detail-list li { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .detail-list li:last-child { border-bottom: none; }
+    .detail-label { font-family: var(--mono); color: var(--muted); min-width: 80px; font-size: 12px; }
+    .detail-value { color: var(--text); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .skill-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; transition: border-color 0.2s; }
+    .skill-card:hover { border-color: var(--border2); }
+    .skill-card-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 12px; font-family: var(--mono); background: var(--bg3); color: var(--muted); padding: 2px 8px; border-radius: 3px; border: 1px solid var(--border); }
+
+    .projects-grid { display: grid; gap: 1rem; }
+    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; transition: border-color 0.2s; }
+    .project-card:hover { border-color: var(--border2); }
+    .project-name { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .project-link { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid var(--border); padding: 0.35rem 0.75rem; border-radius: 4px; white-space: nowrap; transition: all 0.2s; align-self: start; }
+    .project-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+    .exp-list { display: grid; gap: 1.25rem; }
+    .exp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; }
+    .exp-header { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .exp-role { font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .exp-company { color: var(--accent); font-size: 0.875rem; }
+    .exp-date { font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--bg3); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
+    .exp-bullets { list-style: none; margin-top: 0.5rem; display: grid; gap: 0.4rem; }
+    .exp-bullets li { font-size: 0.875rem; color: var(--muted); padding-left: 1rem; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--border2); }
+
+    .contact-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 13px; padding: 0.6rem 1.25rem; border: 1px solid var(--border2); border-radius: 4px; color: var(--muted); transition: all 0.2s; }
+    .contact-btn:hover { color: var(--text); border-color: var(--muted); text-decoration: none; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+    .status { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 11px; color: var(--green); margin-bottom: 1.5rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .coursework { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+    .coursework-label { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">ferrebeejayden</span>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#experience">experience</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">Electrical Engineering Student</div>
+  <h1>Jayden<br><span>Ferrebee</span></h1>
+  <div class="status"><span class="dot"></span>open to co-op / internship opportunities</div>
+  <p class="hero-sub">
+    EE student at Wentworth Institute of Technology with hands-on experience in mission-critical electrical systems, datacenter commissioning, and embedded controls.
+  </p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="https://github.com/ferrebeejayden" class="btn btn-outline" target="_blank">GitHub →</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <h2>About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm an electrical engineering student at <strong>Wentworth Institute of Technology</strong> with real co-op experience in mission-critical electrical design and large-scale datacenter commissioning.
+      </p>
+      <p>
+        My interests sit at the intersection of <strong>controls, automation, and defense</strong> — engineering where reliability isn't optional and systems have to work.
+      </p>
+    </div>
+    <ul class="detail-list">
+      <li><span class="detail-label">school</span><span class="detail-value">Wentworth Institute of Technology</span></li>
+      <li><span class="detail-label">degree</span><span class="detail-value">B.S. Electrical Engineering</span></li>
+      <li><span class="detail-label">grad</span><span class="detail-value">Expected May 2027</span></li>
+      <li><span class="detail-label">focus</span><span class="detail-value">Controls & Automation</span></li>
+      <li><span class="detail-label">phone</span><span class="detail-value">978-798-2300</span></li>
+      <li><span class="detail-label">email</span><span class="detail-value"><a href="mailto:Ferrebeeyjayden@gmail.com">Ferrebeeyjayden@gmail.com</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <h2>Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-label">Programming</div>
+      <div class="skill-tags">
+        <span class="tag">C/C++</span>
+        <span class="tag">Python</span>
+        <span class="tag">MATLAB</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Embedded Systems</div>
+      <div class="skill-tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">Motor Control</span>
+        <span class="tag">Sensor Integration</span>
+        <span class="tag">Circuit Design</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Tools & Software</div>
+      <div class="skill-tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Revit</span>
+        <span class="tag">Procore</span>
+        <span class="tag">OpenCV</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Lab Equipment</div>
+      <div class="skill-tags">
+        <span class="tag">Oscilloscope</span>
+        <span class="tag">Function Generator</span>
+        <span class="tag">DMM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="coursework-label">Coursework</div>
+  <div class="coursework">
+    <span class="tag">Signals & Systems</span>
+    <span class="tag">Network Theory I & II</span>
+    <span class="tag">Analog Circuit Design</span>
+    <span class="tag">Digital Logic</span>
+    <span class="tag">Differential Equations</span>
+    <span class="tag">Feedback & Control Systems</span>
+    <span class="tag">Motor & Control Systems</span>
+    <span class="tag">Solid-State Devices</span>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <h2>Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div>
+        <div class="project-name">Vision-Based Target Tracking System</div>
+        <div class="project-desc">
+          Real-time face detection system using Python and OpenCV driving a pan-tilt turret via an ESP32. Serial communication transmits target coordinates from host to embedded controller, which commands dual MG90 servos in a closed-loop actuation system. Integrated into a modified 3D-printed turret assembly.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">ESP32</span>
+          <span class="tag">Serial Comm</span>
+          <span class="tag">Servo Control</span>
+          <span class="tag">3D Printing</span>
+        </div>
+      </div>
+      <a href="https://github.com/ferrebeejayden" class="project-link" target="_blank">View →</a>
+    </div>
+
+    <div class="project-card">
+      <div>
+        <div class="project-name">Remote Door Unlock System (IR-Controlled)</div>
+        <div class="project-desc">
+          Arduino-based system that unlocks a dormitory door via IR remote. C/C++ firmware reads remote signals and drives a motor through a custom 3D-printed gear and arm assembly to actuate the door handle. System automatically resets to starting position on release signal.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Arduino</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">IR Control</span>
+          <span class="tag">Motor Control</span>
+          <span class="tag">3D Printing</span>
+        </div>
+      </div>
+      <a href="https://github.com/ferrebeejayden" class="project-link" target="_blank">View →</a>
+    </div>
+
+    <!-- Add more project cards here — copy a block above and edit the fields -->
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <h2>Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Electrical Engineering Intern</div>
+          <div class="exp-company">Vanderweil Engineers — Boston, MA</div>
+        </div>
+        <span class="exp-date">Jan 2026 – May 2026</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Developed and updated Revit models for mission-critical electrical systems including one-line diagrams, panel schedules, and power distribution</li>
+        <li>Performed lighting load calculations and NEC-based wire sizing for power distribution systems</li>
+        <li>Integrated field changes and discrepancies into Revit models and construction documents</li>
+        <li>Generated and resolved RFIs to coordinate design changes with contractors and field teams</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Project Engineer — Critical Project Services</div>
+          <div class="exp-company">Integra — Austin, TX</div>
+        </div>
+        <span class="exp-date">May 2025 – Aug 2025</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Supported commissioning of a 48 MW hyperscale datacenter including MV switchgear, UPS systems, PMDCs, transformers, and generators</li>
+        <li>Verified breaker ratings, kAIC values, equipment labels, and installation conditions per NEC and client specifications</li>
+        <li>Completed pre-energization checklists and assisted with relay testing and system startup procedures</li>
+        <li>Reviewed electrical drawings and coordinated field discrepancies with design team and contractors</li>
+        <li>Managed RFIs, submittals, meeting minutes, and daily site reporting using Procore</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <h2>Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <p style="color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem;">
+    Open to co-op and internship opportunities in controls, automation, and defense. Feel free to reach out.
+  </p>
+  <div class="contact-row">
+    <a href="mailto:Ferrebeeyjayden@gmail.com" class="contact-btn">Email</a>
+    <a href="https://github.com/ferrebeejayden" class="contact-btn" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/" class="contact-btn" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  built by jayden ferrebee &nbsp;·&nbsp; ferrebeejayden.github.io
+</footer>
+
+</body>
+</html>
