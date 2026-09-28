@@ -45,3 +45,42 @@ You need Blender 4.2 or the `bpy==4.2` module. `render_reviews.py` also needs Pi
 ## Budget
 About 73k triangles in total. The largest mesh is `Coat` at about 21k. If you need to stay under
 Roblox's per-MeshPart limit, split the coat's sleeves off or lower the row/column counts in the builder.
+
+---
+
+## v2: art-direction and silhouette pass
+
+`HealerBrawler_R15_v2.blend` is built by `build_healer_brawler_v2.py`. v1 (`HealerBrawler_R15.blend`,
+`build_healer_brawler.py`, `renders/`) is left untouched. The rig, weighting helpers, pose tests and
+garment structure are the same; the visible geometry was redesigned:
+
+- **Shoulders and sleeves:** the visible arm mass moves inward (`ARM_CX` 1.5 → 1.3) and is slimmed.
+  Sleeves are now lantern-shaped cloth with a rounded, sloped shoulder cap and a set-in inner edge.
+  They are slightly fuller in the upper sleeve and taper to a thin cuff. Across the sleeves, the
+  character is about 20% narrower. Bones are unchanged; only the arm blocks in the skinned
+  `Body_Limbs` mesh are slimmed and moved inward.
+- **Torso:** hourglass profile (waist half-width 0.755 → 0.60, narrower chest and shoulders). The bust
+  uses a soft falloff (`p = 2`) so it blends into the chest wall.
+- **Wrapped top:** thinner fabric, a deeper crossing, and slim lapel bands built analytically on the
+  garment surface (`front_point` / `param_ribbon`), so they curve cleanly over the bust and cross
+  neatly into the sash.
+- **Coat:** thinner (offset 0.08, thickness 0.022), tapered at the waist, flared toward a longer hem
+  (`HEM` 0.72). Front trim tapers toward the hem; slimmer standing collar.
+- **Sash:** narrower (0.30 tall) with three layers: navy main band, slanted slate wrap and a thin
+  under-band. Smaller cord, knot and pouch.
+- **Lower body:** narrower trousers (`LEG_CX` 0.45), ankle guards that taper toward the ankle, and
+  narrower boots.
+- **Hair:** fuller crown, a large layered swept fringe, framing locks on both sides, side and back
+  masses swept up into a coiled bun with two tufts, subtle nape strands, one long S-curve strand, and
+  an auburn gradient shader (for renders only).
+- **Face:** almond eyes with a lifted outer corner and a heavier lash wing, lid crease, a lid shadow on
+  the iris, slim angular brows (one slightly raised), a smirk and a narrower jaw.
+- **Palette:** deeper green robe, darker trim, warmer off-white, deeper navy, richer auburn.
+
+About 68k triangles (v1: 73k).
+
+```
+python3 build_healer_brawler_v2.py <blank_rig.blend> HealerBrawler_R15_v2.blend
+python3 render_reviews.py HealerBrawler_R15_v2.blend renders_v2
+python3 make_compare.py renders renders_v2 renders_v2/00_v1_vs_v2.png
+```
