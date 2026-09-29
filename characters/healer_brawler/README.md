@@ -84,3 +84,53 @@ python3 build_healer_brawler_v2.py <blank_rig.blend> HealerBrawler_R15_v2.blend
 python3 render_reviews.py HealerBrawler_R15_v2.blend renders_v2
 python3 make_compare.py renders renders_v2 renders_v2/00_v1_vs_v2.png
 ```
+
+---
+
+## v3: shoulder connection, feminine hair, material depth
+
+`HealerBrawler_R15_v3.blend` is built by `build_healer_brawler_v3.py`. v1 and v2 are unchanged.
+The v2 proportions are kept (narrow shoulders, waist, bust, slim lower body, coat taper).
+
+- **Shoulder connection:** the sleeve cap is set in. Its inner side reaches over the coat's shoulder
+  line (`reach` in `sleeve_ring`), so the sleeve grows out of the shoulder instead of hanging beside
+  it. A darker armhole seam ridge marks the join. Weights: the inner cap blends up to 78% into
+  `UpperTorso` (`w_arm`), and the coat's shoulder edge blends 35% into `UpperArm` (`w_torso`). When
+  the arm lifts, the cap stretches from the shoulder onto the arm like connected cloth. The limb
+  blocks stay hidden inside the sleeve. Tested at neutral, 20°, 45°, 90° and one arm raised.
+- **Hair (rebuilt):** a half-up style with:
+  - a full crown cap (thicker, and covering the sides and the nape);
+  - four soft layered bangs tucked under the crown;
+  - wide side sections sweeping back into a tie;
+  - a seven-lock back curtain covering the nape;
+  - four face-framing strands (two cheek locks and two longer strands resting on the coat);
+  - a large tied ponytail with two layered side locks.
+  The gold band, jade-flower pin and beads sit at the tie. The small top bun is gone.
+- **Material depth:** procedural, object-space shaders in `surface_shader`, used for the renders:
+  - colour breakup;
+  - woven bump (heavier on the sash, with horizontal compression lines);
+  - large soft fold shading;
+  - ambient occlusion in overlaps;
+  - darkening at cuffs, hems, the knees and contact areas, driven by a per-vertex `wear` attribute;
+  - rubbed, lighter edges, driven by a per-vertex `edge` attribute.
+
+  Each surface responds differently: a matte robe, soft cloth for the inner top, heavier woven sash,
+  leather boots with scuffed toes, metallic gold, skin with a touch of subsurface, and hair with a soft
+  anisotropic sheen. The `wear`/`edge` attributes stay on the meshes so they can be baked into
+  textures for Roblox later.
+- **Cloth construction geometry:**
+  - a rolled hem on every coat panel;
+  - side seam ridges;
+  - armhole seams and cuff piping;
+  - thicker lapels and trim;
+  - a hanging sash end under the knot;
+  - a few large skirt folds;
+  - one-segment bevels on hard rims, plus weighted normals.
+
+About 82k triangles. The extra geometry is spent on the coat's construction, the hair and the bevels.
+
+```
+python3 build_healer_brawler_v3.py <blank_rig.blend> HealerBrawler_R15_v3.blend
+python3 render_reviews.py HealerBrawler_R15_v3.blend renders_v3
+python3 make_compare_v3.py <v2_renders_with_hair_silhouettes> renders_v3 renders_v3/00_v2_vs_v3.png
+```

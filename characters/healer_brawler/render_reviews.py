@@ -102,6 +102,7 @@ def arms(deg_left, deg_right, fwd=0.0):
 
 POSES = {
     "neutral": lambda: None,
+    "arms20": lambda: arms(20, 20),
     "arms45": lambda: arms(45, 45),
     "arms90": lambda: arms(90, 90),
     "armraise": lambda: (arms(20, 155), rotate_world("LeftLowerArm", "X", -25)),
@@ -129,6 +130,23 @@ SHOTS = {
     "09b_arms90_back": dict(pose="arms90", cam=((3.0, 10.5, 4.2), (0, 0, 3.0), 48), res=(1400, 1200)),
     "10_armraise": dict(pose="armraise", cam=((-4.5, -9.5, 3.6), (0, 0, 3.0), 50), res=(1200, 1400)),
     "11_torso_twist": dict(pose="twist", cam=((-3.0, -10.5, 3.6), FULL_T, 52), res=(1200, 1300)),
+    # --- v3 review set: shoulder connection, hair, material close-ups
+    "08b_arms20": dict(pose="arms20", cam=((-3.5, -10.5, 3.6), FULL_T, 52), res=(1300, 1300)),
+    "20_shoulder_neutral": dict(pose="neutral", cam=((-2.7, -2.9, 4.35), (-0.95, -0.05, 3.62), 55), res=(1100, 1100)),
+    "20b_shoulder_neutral_back": dict(pose="neutral", cam=((-2.6, 3.0, 4.35), (-0.95, 0.05, 3.62), 55), res=(1100, 1100)),
+    "21_shoulder_20": dict(pose="arms20", cam=((-2.7, -2.9, 4.35), (-1.0, -0.05, 3.6), 55), res=(1100, 1100)),
+    "22_shoulder_45": dict(pose="arms45", cam=((-2.8, -2.9, 4.4), (-1.1, -0.05, 3.62), 55), res=(1100, 1100)),
+    "23_shoulder_90": dict(pose="arms90", cam=((-2.6, -3.3, 4.5), (-1.25, -0.05, 3.72), 52), res=(1100, 1100)),
+    "23b_shoulder_raise": dict(pose="armraise", cam=((-2.8, -3.2, 4.6), (-0.95, -0.05, 3.9), 50), res=(1100, 1100)),
+    "30_hair_front": dict(pose="neutral", cam=((0.0, -3.9, 4.72), (0, 0, 4.55), 50), res=(1100, 1100)),
+    "31_hair_side": dict(pose="neutral", cam=((-3.9, 0.15, 4.62), (0, 0.2, 4.4), 50), res=(1100, 1100)),
+    "32_hair_back": dict(pose="neutral", cam=((0.6, 3.9, 4.75), (0, 0.2, 4.4), 50), res=(1100, 1100)),
+    "40_robe_material": dict(pose="neutral", cam=((-1.9, -2.4, 1.75), (-0.55, -0.2, 1.45), 52), res=(1100, 1100)),
+    "41_sash_lapel_material": dict(pose="neutral", cam=((-0.9, -2.6, 3.35), (0.0, -0.4, 3.0), 50), res=(1100, 1100)),
+    "42_boots_wraps": dict(pose="neutral", cam=((-1.4, -2.6, 0.95), (0.0, -0.1, 0.42), 50), res=(1100, 1100)),
+    "50_hairsil_front": dict(pose="neutral", cam=((0.0, -3.9, 4.6), (0, 0, 4.45), 45), res=(800, 800), sil=True),
+    "51_hairsil_side": dict(pose="neutral", cam=((-3.9, 0.15, 4.5), (0, 0.2, 4.35), 45), res=(800, 800), sil=True),
+    "52_hairsil_back": dict(pose="neutral", cam=((0.0, 3.9, 4.6), (0, 0.1, 4.45), 45), res=(800, 800), sil=True),
 }
 
 sil_mat = bpy.data.materials.new("Sil"); sil_mat.use_nodes = True
