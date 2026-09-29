@@ -178,3 +178,41 @@ HB_GRAY=1 python3 render_reviews.py HealerBrawler_R15_v5.blend renders_v5/graybo
 python3 render_reviews.py HealerBrawler_R15_v5.blend renders_v5
 python3 make_compare_v5.py renders_v3 renders_v5 renders_v5/00_v3_vs_v5.png
 ```
+
+---
+
+## v6: hair-only rebuild
+
+`HealerBrawler_R15_v6.blend` is built by `build_healer_brawler_v6.py`, which is identical to v5 except
+for the hair meshes and the hair shader. The body, clothing, proportions, rig, weights and materials are
+v5's. v5 is unchanged.
+
+The hair is a half-up style built from primary masses, then secondary locks, then accents:
+
+- **Base:** a thin scalp-coverage layer only, with no helmet shell. The silhouette comes from the locks.
+- **Crown (primary):** six broad masses flow from a slightly off-centre part (`PART`) around the crown
+  into the tie. The part and the flow direction are visible, and the lumpy, asymmetric crown avoids a
+  sphere. Four upper-back locks sweep up from behind the ears into the tie.
+- **Bangs (secondary):** four overlapping bangs of different lengths and directions: a long sweep to the
+  wearer's right, a centre bang, a short left bang and an accent lock. They are kept close to the
+  forehead, so there's no visor and no row of teeth.
+- **Side volume (secondary):** broad temple/cheek masses that reach past the jaw. The right side is a
+  little longer.
+- **Face framing (accent):** two long locks resting on the robe front. The right one is longer.
+- **Loose back (primary):** seven broad, overlapping locks of varied length (z ≈ 3.3–3.8), with late
+  tapers and slight directional offsets. They lie on the robe back instead of forming a spike curtain.
+- **Ponytail:** four locks gathered at the tie (main fall, left curve, right flip, short top flick),
+  each curving on its own. The gold band, jade-flower pin and beads sit at the tie.
+- **Shader:** each lock stores `hs` (0 at the root, 1 at the tip) and `lockvar` (a per-lock tone). The
+  shader darkens roots and recesses, lightens the broad tips, varies the tone between overlapping locks,
+  and adds a controlled anisotropic sheen with AO in the recesses.
+
+Gray review renders (front, 3/4, side, rear 3/4, back, from above) are in `renders_v6/graybox/`. Final
+renders are in `renders_v6/`, and `renders_v6/00_v5_vs_v6.png` is the comparison sheet.
+
+```
+python3 build_healer_brawler_v6.py <blank_rig.blend> HealerBrawler_R15_v6.blend
+HB_GRAY=1 python3 render_reviews.py HealerBrawler_R15_v6.blend renders_v6/graybox 70_h_front 71_h_34 72_h_side 73_h_rear34 74_h_back 75_h_above
+python3 render_reviews.py HealerBrawler_R15_v6.blend renders_v6
+python3 make_compare_v6.py <v5_hair_renders> renders_v6 renders_v6/00_v5_vs_v6.png
+```

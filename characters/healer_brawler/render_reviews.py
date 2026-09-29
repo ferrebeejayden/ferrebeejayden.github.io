@@ -130,6 +130,18 @@ SHOTS = {
     "09b_arms90_back": dict(pose="arms90", cam=((3.0, 10.5, 4.2), (0, 0, 3.0), 48), res=(1400, 1200)),
     "10_armraise": dict(pose="armraise", cam=((-4.5, -9.5, 3.6), (0, 0, 3.0), 50), res=(1200, 1400)),
     "11_torso_twist": dict(pose="twist", cam=((-3.0, -10.5, 3.6), FULL_T, 52), res=(1200, 1300)),
+    # --- v6 hair review (head + shoulders framing)
+    "04b_rear34": dict(pose="neutral", cam=((6.2, 8.4, 4.0), FULL_T, 58), res=(1100, 1400)),
+    "70_h_front": dict(pose="neutral", cam=((0.0, -4.8, 4.62), (0, 0, 4.32), 50), res=(1100, 1100)),
+    "71_h_34": dict(pose="neutral", cam=((-3.4, -3.4, 4.72), (0, 0, 4.32), 50), res=(1100, 1100)),
+    "72_h_side": dict(pose="neutral", cam=((-5.2, 0.2, 4.5), (0, 0.2, 4.15), 50), res=(1100, 1100)),
+    "73_h_rear34": dict(pose="neutral", cam=((3.8, 4.0, 4.7), (0, 0.15, 4.1), 50), res=(1100, 1100)),
+    "74_h_back": dict(pose="neutral", cam=((0.0, 5.3, 4.5), (0, 0.15, 4.1), 50), res=(1100, 1100)),
+    "75_h_above": dict(pose="neutral", cam=((-2.0, -2.6, 6.9), (0, 0.1, 4.55), 50), res=(1100, 1100)),
+    "76_h_back_sil": dict(pose="neutral", cam=((0.0, 5.3, 4.5), (0, 0.15, 4.1), 50), res=(900, 900), sil=True),
+    "77_h_front_sil": dict(pose="neutral", cam=((0.0, -4.8, 4.62), (0, 0, 4.32), 50), res=(900, 900), sil=True),
+    "78_h_side_sil": dict(pose="neutral", cam=((-5.2, 0.2, 4.5), (0, 0.2, 4.15), 50), res=(900, 900), sil=True),
+    "79_hair_close": dict(pose="neutral", cam=((-2.1, -2.2, 5.0), (0, 0.05, 4.62), 55), res=(1200, 1200)),
     # --- v5 (Roblox-first) close-ups
     "60_chest_wrap": dict(pose="neutral", cam=((-1.4, -3.1, 3.7), (0, -0.45, 3.25), 50), res=(1100, 1100)),
     "61_shoulder_arm": dict(pose="neutral", cam=((-3.5, -3.4, 4.3), (-1.2, 0, 3.35), 48), res=(1100, 1100)),
