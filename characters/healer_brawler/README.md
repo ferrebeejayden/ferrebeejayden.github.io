@@ -134,3 +134,47 @@ python3 build_healer_brawler_v3.py <blank_rig.blend> HealerBrawler_R15_v3.blend
 python3 render_reviews.py HealerBrawler_R15_v3.blend renders_v3
 python3 make_compare_v3.py <v2_renders_with_hair_silhouettes> renders_v3 renders_v3/00_v2_vs_v3.png
 ```
+
+---
+
+## v5: Roblox-first style correction
+
+`HealerBrawler_R15_v5.blend` is built by `build_healer_brawler_v5.py`. v1–v3 are unchanged. (There is no
+v4; the v5 comparison is against v3, the previous revision.)
+
+The target is a **Roblox avatar first, anime character second**, so the gray model on its own has to
+read as Roblox.
+
+- **Body:** the full-size 1×1 R15 arm and leg blocks are back at their original positions, and the hands
+  are simple blocks. The torso is a boxy block with broad square shoulders, a mild waist and readable
+  hips. The bust is a stylised rounded form on the block's front rather than a human torso.
+- **Sleeves:** clothing shells with a rounded-box cross-section built around the blocky arm. They have a
+  square shoulder top with a softened edge, a slight flare, big soft folds, a strong cuff band and a gold
+  stripe. The arm sits against the torso the Roblox way.
+- **Robe:** sits over the block torso, eases in at the sash and flares to the hem. It has a bold front
+  trim, a standing collar, split lower panels, a rolled hem and seams.
+- **Wrapped top:** thicker cloth, a readable crossing, and bold lapels that narrow into the sash.
+- **Sash:** chunky, readable layers (main band, slanted wrap and under-band), plus the cord, knot and
+  hanging end.
+- **Lower body:** boxy trousers over the blocky legs, chunky wraps, block boots.
+- **Head and face:** a rounded-cube Roblox head. The face has large anime eyes, simple brows, a tiny
+  nose mark and a small smile.
+- **Hair:** chunky, faceted anime pieces with 6-sided locks and sharp edges:
+  - a strong pointed fringe with an accent lock between the eyes;
+  - big side masses;
+  - two cheek locks and two long locks in front of the shoulders;
+  - a long, layered back with a V-shaped hem;
+  - a substantial high ponytail with two side locks.
+  The gold band, jade-flower pin and beads sit at the tie.
+- **Materials:** the v3 procedural material system (matte robe, soft wrap, woven sash, leather boots,
+  metallic trim, wear and edge masks), now applied to the new forms.
+
+The gray-model review renders are in `renders_v5/graybox/` (run with `HB_GRAY=1`); the final renders
+are in `renders_v5/`.
+
+```
+python3 build_healer_brawler_v5.py <blank_rig.blend> HealerBrawler_R15_v5.blend
+HB_GRAY=1 python3 render_reviews.py HealerBrawler_R15_v5.blend renders_v5/graybox
+python3 render_reviews.py HealerBrawler_R15_v5.blend renders_v5
+python3 make_compare_v5.py renders_v3 renders_v5 renders_v5/00_v3_vs_v5.png
+```

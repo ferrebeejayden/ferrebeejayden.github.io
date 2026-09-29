@@ -130,6 +130,12 @@ SHOTS = {
     "09b_arms90_back": dict(pose="arms90", cam=((3.0, 10.5, 4.2), (0, 0, 3.0), 48), res=(1400, 1200)),
     "10_armraise": dict(pose="armraise", cam=((-4.5, -9.5, 3.6), (0, 0, 3.0), 50), res=(1200, 1400)),
     "11_torso_twist": dict(pose="twist", cam=((-3.0, -10.5, 3.6), FULL_T, 52), res=(1200, 1300)),
+    # --- v5 (Roblox-first) close-ups
+    "60_chest_wrap": dict(pose="neutral", cam=((-1.4, -3.1, 3.7), (0, -0.45, 3.25), 50), res=(1100, 1100)),
+    "61_shoulder_arm": dict(pose="neutral", cam=((-3.5, -3.4, 4.3), (-1.2, 0, 3.35), 48), res=(1100, 1100)),
+    "62_face": dict(pose="neutral", cam=((-0.7, -3.3, 4.75), (0, -0.3, 4.6), 58), res=(1100, 1100)),
+    "63_robe": dict(pose="neutral", cam=((-2.3, -2.7, 1.8), (-0.75, -0.3, 1.45), 50), res=(1100, 1100)),
+    "64_sash_inner": dict(pose="neutral", cam=((-0.9, -2.9, 3.2), (0, -0.5, 2.95), 50), res=(1100, 1100)),
     # --- v3 review set: shoulder connection, hair, material close-ups
     "08b_arms20": dict(pose="arms20", cam=((-3.5, -10.5, 3.6), FULL_T, 52), res=(1300, 1300)),
     "20_shoulder_neutral": dict(pose="neutral", cam=((-2.7, -2.9, 4.35), (-0.95, -0.05, 3.62), 55), res=(1100, 1100)),
@@ -154,6 +160,11 @@ nt = sil_mat.node_tree; nt.nodes.clear()
 em = nt.nodes.new("ShaderNodeEmission"); em.inputs["Color"].default_value = (0.02, 0.02, 0.025, 1)
 out = nt.nodes.new("ShaderNodeOutputMaterial"); nt.links.new(em.outputs[0], out.inputs[0])
 
+GRAY = os.environ.get("HB_GRAY") == "1"      # plain gray graybox review (form only, no materials)
+gray_mat = bpy.data.materials.new("Graybox"); gray_mat.use_nodes = True
+gb = gray_mat.node_tree.nodes["Principled BSDF"]
+gb.inputs["Base Color"].default_value = (0.2, 0.2, 0.21, 1); gb.inputs["Roughness"].default_value = 0.6
+
 for name, s in SHOTS.items():
     if ONLY and name not in ONLY:
         continue
@@ -163,7 +174,7 @@ for name, s in SHOTS.items():
     aim(loc, tgt, lens)
     sc.render.resolution_x, sc.render.resolution_y = s["res"]
     sil = s.get("sil", False)
-    sc.view_layers[0].material_override = sil_mat if sil else None
+    sc.view_layers[0].material_override = sil_mat if sil else (gray_mat if GRAY else None)
     floor.hide_render = sil
     bg.inputs["Color"].default_value = (1, 1, 1, 1) if sil else (0.055, 0.058, 0.065, 1)
     bg.inputs["Strength"].default_value = 1.0 if sil else 0.6
