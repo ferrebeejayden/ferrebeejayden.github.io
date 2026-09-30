@@ -216,3 +216,35 @@ HB_GRAY=1 python3 render_reviews.py HealerBrawler_R15_v6.blend renders_v6/graybo
 python3 render_reviews.py HealerBrawler_R15_v6.blend renders_v6
 python3 make_compare_v6.py <v5_hair_renders> renders_v6 renders_v6/00_v5_vs_v6.png
 ```
+
+---
+
+## v7: bust and clothing-fit correction
+
+`HealerBrawler_R15_v7.blend` is built by `build_healer_brawler_v7.py`. v6 is unchanged. Only the bust
+shape and the way the clothing fits around it changed. The proportions, sleeves, robe below the chest,
+sash, legs, rig, hair and face are all v6's.
+
+- **Bust:** the old forward height-field bump (`bust_disp`) is replaced by two real ellipsoid volumes
+  (`BUST`, `ell_front`). Each form is about 0.86 studs across (`rx` 0.43) and projects about 0.49 studs
+  past the torso front (`ry` 0.52). The two forms meet at the centre (`cx` 0.41). They are
+  smooth-unioned onto the block torso (`smin`), with two blend widths:
+  - `K_T` blends the forms into the torso and gives a tight underside tuck instead of a hill rising
+    from a flat board;
+  - `K_C` blends the two forms together while keeping a clear central separation.
+- **Wrap top:** uses the same volumes with slightly softer blends. It follows each form at a thinner
+  offset (`IT_OFF` 0.022), keeps the centre separation and wraps under the lower curves. The lapels now
+  run along the inner curve of each form and cross just above the sash (`Z_CROSS` 3.0). They're built
+  with `param_ribbon`, which places every vertex on the garment surface, so they hug the curves instead
+  of bridging them.
+- **Robe:** the front edges (`XE`) open outward at chest height (up to about 0.78 studs from centre), so
+  the robe and its trim frame the bust instead of covering its outer half. It is unchanged below the
+  sash line.
+- **Hair:** the long strands that rest on the chest are re-seated on the new front surface.
+- **Tessellation:** denser torso, wrap and robe meshes around the chest, so the curves stay smooth.
+  About 101k triangles in total.
+
+```
+python3 build_healer_brawler_v7.py <blank_rig.blend> HealerBrawler_R15_v7.blend
+python3 make_compare_v7.py renders_v7/v6_reference renders_v7 renders_v7/00_v6_vs_v7.png
+```

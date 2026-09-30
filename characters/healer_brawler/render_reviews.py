@@ -130,6 +130,9 @@ SHOTS = {
     "09b_arms90_back": dict(pose="arms90", cam=((3.0, 10.5, 4.2), (0, 0, 3.0), 48), res=(1400, 1200)),
     "10_armraise": dict(pose="armraise", cam=((-4.5, -9.5, 3.6), (0, 0, 3.0), 50), res=(1200, 1400)),
     "11_torso_twist": dict(pose="twist", cam=((-3.0, -10.5, 3.6), FULL_T, 52), res=(1200, 1300)),
+    # --- v7 bust / clothing-fit review
+    "80_elev34": dict(pose="neutral", cam=((-5.2, -8.0, 7.0), (0, 0, 2.95), 52), res=(1100, 1300)),
+    "81_chest_close": dict(pose="neutral", cam=((-1.7, -3.3, 3.75), (0, -0.5, 3.25), 48), res=(1200, 1200)),
     # --- v6 hair review (head + shoulders framing)
     "04b_rear34": dict(pose="neutral", cam=((6.2, 8.4, 4.0), FULL_T, 58), res=(1100, 1400)),
     "70_h_front": dict(pose="neutral", cam=((0.0, -4.8, 4.62), (0, 0, 4.32), 50), res=(1100, 1100)),
